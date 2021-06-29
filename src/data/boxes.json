@@ -1,0 +1,124 @@
+{
+  "boxes": [
+    {
+      "BoxCode": "10001",
+      "Width": 700,
+      "Height": 500,
+      "Depth": 350
+    },
+    {
+      "BoxCode": "10002",
+      "Width": 700,
+      "Height": 500,
+      "Depth": 350
+    },
+    {
+      "BoxCode": "10003",
+      "Width": 700,
+      "Height": 500,
+      "Depth": 350
+    },
+    {
+      "BoxCode": "10004",
+      "Width": 700,
+      "Height": 500,
+      "Depth": 350
+    },
+    {
+      "BoxCode": "10005",
+      "Width": 700,
+      "Height": 500,
+      "Depth": 350
+    },
+    {
+      "BoxCode": "10006",
+      "Width": 700,
+      "Height": 500,
+      "Depth": 350
+    },
+    {
+      "BoxCode": "10007",
+      "Width": 700,
+      "Height": 500,
+      "Depth": 350
+    },
+    {
+      "BoxCode": "10008",
+      "Width": 700,
+      "Height": 500,
+      "Depth": 350
+    },
+    {
+      "BoxCode": "10009",
+      "Width": 700,
+      "Height": 500,
+      "Depth": 350
+    },
+    {
+      "BoxCode": "10010",
+      "Width": 700,
+      "Height": 500,
+      "Depth": 350
+    },
+    {
+      "BoxCode": "10011",
+      "Width": 700,
+      "Height": 500,
+      "Depth": 350
+    },
+    {
+      "BoxCode": "10012",
+      "Width": 700,
+      "Height": 500,
+      "Depth": 350
+    },
+    {
+      "BoxCode": "10013",
+      "Width": 700,
+      "Height": 500,
+      "Depth": 350
+    },
+    {
+      "BoxCode": "10014",
+      "Width": 700,
+      "Height": 500,
+      "Depth": 350
+    },
+    {
+      "BoxCode": "10015",
+      "Width": 700,
+      "Height": 500,
+      "Depth": 350
+    },
+    {
+      "BoxCode": "10016",
+      "Width": 700,
+      "Height": 500,
+      "Depth": 350
+    },
+    {
+      "BoxCode": "10017",
+      "Width": 700,
+      "Height": 500,
+      "Depth": 350
+    },
+    {
+      "BoxCode": "10018",
+      "Width": 700,
+      "Height": 500,
+      "Depth": 350
+    },
+    {
+      "BoxCode": "10019",
+      "Width": 700,
+      "Height": 500,
+      "Depth": 350
+    },
+    {
+      "BoxCode": "10020",
+      "Width": 700,
+      "Height": 500,
+      "Depth": 350
+    }
+  ]
+}
