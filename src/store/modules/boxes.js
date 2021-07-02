@@ -1,34 +1,38 @@
 const state = {
     
-	boxes:  [],
+	box:  null,
 
 };
 
 const getters = {
 
-	boxes: (state) => {
-		return state.boxes
+	box: (state) => {
+		return state.box
 	},
 
 };
 
 const mutations = {
 	
-	setBoxes(state, boxes) {
-		state.boxes = boxes
+	setBox(state, box) {
+		state.box = box
 	},
 
 };
 
 const actions = {
 	
-	async getBoxes({ commit }) {
-		await fetch('http://localhost:4000/boxes')
-			.then(res => res.json())
-			.then(data => {
-				commit('setBoxes', data)
+	async getBox({ commit }, BoxCode) {
+		await fetch('http://localhost:4000/boxes/' + BoxCode)
+			.then(res => {
+				if(res.ok) {
+					return res.json()
+				}
+				else throw new Error()
 			})
-			.catch(err => console.log(err.message))
+			.then(data => {
+				commit('setBox', data)
+			})
 	},
 
 };

@@ -1,6 +1,7 @@
 <template>
   <div class="articles">
-      <Search :maxLength="6" :placeholder="'Wpisz kod boxa...'" v-on:search="filterByCode" />
+      <Search :maxLength="6" :placeholder="'Wpisz kod boxa...'" v-on:search="setCode" />
+      <button @click="searchBox">Szukaj</button>
       <table v-if="storedBoxes.length > 0">
           <tr>
               <td class="name"><b>Kod Boxa</b> </td>
@@ -28,8 +29,8 @@
               <td><b>Głębokość</b></td>
               <td>Dodaj</td>
           </tr>
-          <template v-for="box in boxes" >
-            <tr v-if="checkCode(box)" :key="box.BoxCode">
+          <template v-if="box" >
+            <tr>
                 <td class="name">{{ box.BoxCode }}</td>
                 <td>{{ box.Width }}</td>
                 <td>{{ box.Height }}</td>
@@ -37,6 +38,9 @@
                 <td><button class="add" @click="addToStored(box)">+</button></td>
             </tr>
           </template>
+          <tr v-if="error">
+                <td colspan="4">{{ error }}</td>
+          </tr>
           
       </table>
   </div>
@@ -53,22 +57,18 @@ export default {
     },
     data() {
         return {
-            boxes: [],
+            box: null,
+            error: null,
             storedBoxes: [],
             search: ''
         }
     },
     methods: {
         ...mapActions([
-            'getBoxes'
+            'getBox'
         ]),
-        filterByCode(code) {
+        setCode(code) {
             this.search = code
-        },
-        checkCode(box) {
-            if(this.search.length < 3) return false
-            if(box.BoxCode.toString().startsWith(this.search)) return true
-            return false
         },
         addToStored(box) {
             
@@ -85,22 +85,28 @@ export default {
             let index = this.storedBoxes.indexOf(box)
             this.storedBoxes.splice(index, 1)
             localStorage.setItem('storedBoxes', JSON.stringify(this.storedBoxes))
+        },
+        async searchBox() {
+            this.error = null
+            this.box = null
+            try {
+                await this.getBox(this.search)
+            } catch(err) {
+                this.error = 'Brak boxa o podanym kodzie'
+            } finally {
+                if(!this.error) {
+                    this.box = store.getters.box
+                }
+                else {
+                    this.error = 'Brak boxa o podanym kodzie'
+                    this.box = null
+                }
+            }
         }
     },
     async mounted() {
-        let error = null
-        try {
-            await this.getBoxes()
-        } catch(err) {
-            console.log(err)
-            error = err
-        } finally {
-            if(!error) {
-                this.boxes = store.getters.boxes
-            }
-        }
         
-        if(localStorage.getItem('storedBoxes').length > 0)
+        if(JSON.parse(localStorage.getItem("storedBoxes")))
         {
             this.storedBoxes = JSON.parse(localStorage.getItem("storedBoxes"));
         }

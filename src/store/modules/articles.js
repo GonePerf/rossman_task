@@ -2,35 +2,41 @@ const state = {
 	
 	users: [],
 
-	articles:  [],
+	article:  null,
 
 };
 
 const getters = {
 
-	articles: (state) => {
-		return state.articles
+	article: (state) => {
+		return state.article
 	},
 
 };
 
 const mutations = {
 	
-	setArticles(state, articles) {
-		state.articles = articles
+	setArticle(state, article) {
+		state.article = article
 	},
 
 };
 
 const actions = {
 	
-	async getArticles({ commit }) {
-		await fetch('http://localhost:3000/articles')
-			.then(res => res.json())
-			.then(data => {
-				commit('setArticles', data)
+	async getArticle({ commit }, code) {
+		
+			await fetch('http://localhost:3000/articles/'+code)
+			.then(res => {
+				if(res.ok) {
+					return res.json()
+				}
+				else throw new Error()
 			})
-			.catch(err => console.log(err.message))
+			.then(data => {
+				commit('setArticle', data)
+			})
+		
 	},
 
 };

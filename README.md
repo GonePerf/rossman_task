@@ -14,11 +14,11 @@ npm i json-server
 ```
 #### pierwszy terminal
 ```
-json-server --watch src/data/articles.json
+json-server --watch --id code src/data/articles.json
 ```
 #### drugi terminal
 ```
-json-server --watch -p 4000 src/data/boxes.json
+json-server --watch -p --id BoxCode 4000 src/data/boxes.json
 ```
 
 #### trzeci terminal

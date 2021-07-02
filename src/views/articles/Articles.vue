@@ -1,6 +1,7 @@
 <template>
   <div class="articles">
       <Search :maxLength="13" :placeholder="'Wpisz kod artykułu...'" v-on:search="filterByCode" />
+      <button @click="searchA">Szukaj</button>
       <table>
           <tr>
               <td class="name"><b>Nazwa</b> </td>
@@ -8,12 +9,15 @@
               <td><b>Cena</b></td>
               <td><b>Stok</b></td>
           </tr>
-          <template v-for="article in articles" >
-            <tr v-if="checkCode(article)" :key="article.code">
+          <template>
+            <tr v-if="article">
                 <td class="name">{{ article.name }}</td>
                 <td>{{ article.code }}</td>
                 <td>{{ article.price }} zł</td>
                 <td>{{ article.stock }}</td>
+            </tr>
+            <tr v-if="error">
+                <td colspan="4">{{ error }}</td>
             </tr>
           </template>
           
@@ -32,37 +36,37 @@ export default {
     },
     data() {
         return {
-            articles: [],
-            search: ''
+            article: null,
+            search: '',
+            error: null
         }
     },
     methods: {
         ...mapActions([
-            'getArticles'
+            'getArticle'
         ]),
+        async searchA() {
+            this.error = null
+            this.article = null
+            try {
+                await this.getArticle(this.search)
+            } catch(err) {
+                this.error = 'Brak artykułu o podanym kodzie'
+            } finally {
+                if(!this.error) {
+                    this.article = store.getters.article
+                }
+                else {
+                    this.error = 'Brak artykułu o podanym kodzie'
+                    this.article = null
+                }
+            }
+        },
         filterByCode(code) {
             this.search = code
+            
         },
-        checkCode(article) {
-            if(this.search.length < 3) return false
-            if(article.code.toString().startsWith(this.search)) return true
-            return false
-        }
     },
-    async mounted() {
-        let error = null
-        try {
-            await this.getArticles()
-        } catch(err) {
-            console.log(err)
-            error = err
-        } finally {
-            if(!error) {
-                this.articles = store.getters.articles
-            }
-        }
-        
-    }
 }
 </script>
 
